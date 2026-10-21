@@ -622,24 +622,22 @@ h2 em {
 
 .card__art {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
   aspect-ratio: 4 / 3.3;
+  background: var(--blush);
   border-radius: calc(var(--radius) - 10px);
   overflow: hidden;
 }
 
-.card__art::before {
-  content: "";
-  position: absolute;
-  top: 9%;
-  left: 50%;
-  width: 58%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .38);
-  transform: translateX(-50%);
+.card__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+
+.card:hover .card__art img {
+  transform: scale(1.045);
 }
 
 .card__badge {
@@ -655,25 +653,7 @@ h2 em {
   font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
-}
-
-.bouquet {
-  width: 64%;
-  height: 94%;
-  transform-origin: 50% 88%;
-  transition: transform .45s ease;
-}
-
-.card:hover .bouquet {
-  transform: translateY(-5px) rotate(-1.2deg) scale(1.03);
-}
-
-.card:nth-child(even) .bouquet {
-  transform: scaleX(-1);
-}
-
-.card:nth-child(even):hover .bouquet {
-  transform: scaleX(-1) translateY(-5px) rotate(1.2deg) scale(1.03);
+  box-shadow: 0 6px 18px rgba(43, 37, 33, .22);
 }
 
 .card__body {
@@ -735,78 +715,6 @@ h2 em {
   transform: translateX(3px);
 }
 
-.palette-peony {
-  --petal: #f0b6bf;
-  --core: #d98a99;
-  --leaf: #8fa183;
-  --wrap: #f7ece1;
-  --wrap-fold: #eadbcb;
-  --ribbon: #d98a99;
-  background: linear-gradient(160deg, #fdeeeb 0%, #f6d8d9 100%);
-}
-
-.palette-bordeaux {
-  --petal: #a93950;
-  --core: #7d2538;
-  --leaf: #748664;
-  --wrap: #e8d9c9;
-  --wrap-fold: #dccbb8;
-  --ribbon: #c9a15e;
-  background: linear-gradient(160deg, #f7e8e6 0%, #efd2cd 100%);
-}
-
-.palette-tulip {
-  --petal: #f19a7b;
-  --core: #e07a56;
-  --leaf: #94a585;
-  --wrap: #f4e9dc;
-  --wrap-fold: #e9dbc9;
-  --ribbon: #e07a56;
-  background: linear-gradient(160deg, #fdf0e6 0%, #f8ddca 100%);
-}
-
-.palette-field {
-  --petal: #f2d270;
-  --core: #d9a83e;
-  --leaf: #8b9c76;
-  --wrap: #f3e8d7;
-  --wrap-fold: #e7d9c4;
-  --ribbon: #b08d3f;
-  background: linear-gradient(160deg, #faf4e3 0%, #f2e6c6 100%);
-}
-
-.palette-orchid {
-  --petal: #b9a4d6;
-  --core: #8d76b3;
-  --leaf: #7e8f75;
-  --wrap: #ece0d1;
-  --wrap-fold: #e0d2c0;
-  --ribbon: #8d76b3;
-  background: linear-gradient(160deg, #f3eef8 0%, #e6ddef 100%);
-}
-
-.palette-mix {
-  --petal: #e88a9a;
-  --core: #c96a7c;
-  --leaf: #8b9c76;
-  --wrap: #f4ead9;
-  --wrap-fold: #e6d8c3;
-  --ribbon: #c96a7c;
-  background: linear-gradient(160deg, #f5f7ee 0%, #e3ead7 100%);
-}
-
-.palette-mix .petal:nth-of-type(2n) {
-  fill: #f2c46d;
-}
-
-.palette-mix .petal:nth-of-type(3n) {
-  fill: #cfa9d6;
-}
-
-.palette-mix .petal:nth-of-type(5n) {
-  fill: #f0a07f;
-}
-
 .petal {
   fill: var(--petal, #e9b3bd);
 }
@@ -816,33 +724,6 @@ h2 em {
 }
 
 .flower-core {
-  fill: var(--core, #d98a99);
-}
-
-.stems {
-  fill: none;
-  stroke: var(--leaf, #8fa183);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-}
-
-.leaf-shapes {
-  fill: var(--leaf, #8fa183);
-}
-
-.wrap {
-  fill: var(--wrap, #f3e7db);
-}
-
-.wrap-fold {
-  fill: var(--wrap-fold, #e9d9c9);
-}
-
-.ribbon {
-  fill: var(--ribbon, #c97587);
-}
-
-.buds {
   fill: var(--core, #d98a99);
 }
 
