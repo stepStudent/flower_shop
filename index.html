@@ -11,6 +11,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='85'%3E%F0%9F%8C%B7%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('khryzantema-theme');
+        const dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) {
+          document.documentElement.dataset.theme = 'dark';
+          document.querySelector('meta[name="theme-color"]').content = '#171210';
+        }
+      } catch {}
+    })();
+  </script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false">
@@ -74,7 +86,18 @@
         <a href="#contacts">Контакти</a>
       </nav>
 
-      <a class="btn btn--primary header__cta" href="#contacts">Замовити букет</a>
+      <div class="header__actions">
+        <button class="theme-toggle" type="button" aria-label="Увімкнути темну тему" aria-pressed="false">
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+          </svg>
+        </button>
+        <a class="btn btn--primary header__cta" href="#contacts">Замовити букет</a>
+      </div>
     </div>
   </header>
 
@@ -502,5 +525,38 @@
       <p class="footer__copy">© 2026 «Хризантема». Усі квіти — з любов'ю.</p>
     </div>
   </footer>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.querySelector('.theme-toggle');
+      const meta = document.querySelector('meta[name="theme-color"]');
+      const system = window.matchMedia('(prefers-color-scheme: dark)');
+      const storageKey = 'khryzantema-theme';
+      const isDark = () => root.dataset.theme === 'dark';
+
+      const apply = dark => {
+        if (dark) root.dataset.theme = 'dark';
+        else root.removeAttribute('data-theme');
+        meta.setAttribute('content', dark ? '#171210' : '#f8f3ec');
+        toggle.setAttribute('aria-pressed', String(dark));
+        toggle.setAttribute('aria-label', dark ? 'Увімкнути світлу тему' : 'Увімкнути темну тему');
+      };
+
+      toggle.addEventListener('click', () => {
+        const dark = !isDark();
+        apply(dark);
+        try { localStorage.setItem(storageKey, dark ? 'dark' : 'light'); } catch {}
+      });
+
+      system.addEventListener('change', event => {
+        let saved = null;
+        try { saved = localStorage.getItem(storageKey); } catch {}
+        if (!saved) apply(event.matches);
+      });
+
+      apply(isDark());
+    })();
+  </script>
 </body>
 </html>
